@@ -31,7 +31,7 @@ Flow: `Admin app → sticks (agent) → API server ← contest platform` and `AP
 |---|---|
 | Name | **Contest Keeper**, with the parts **Keeper OS**, **Keeper Forge**, **Keeper Hub**, **Keeper Extension** (§3). Internal names fixed (`ck-*`, crates `ck-*`). Everything contestants see (contest name, computer names, USB label, wallpaper, bookmarks, welcome text) is chosen by the admin. |
 | Language | **Rust** everywhere. Python was rejected; the Python prototype is kept only as a reference. |
-| UIs | **React + TypeScript** for the admin app (inside **Tauri 2**) and the dashboard. Dashboard is served by the API. |
+| UIs | **Svelte 5 + TypeScript** (latest release, same as the extension) for the admin app (inside **Tauri 2**) and the dashboard. Dashboard is served by the API. |
 | API | **Axum** (Tokio), **PostgreSQL** via **SQLx**, WebSocket for live updates, OpenAPI via `utoipa`, Docker Compose, HTTPS via **Caddy** (or the cloud's own HTTPS). |
 | Contest machines | **x86 PCs only** (normal Windows laptops/desktops booting the stick). Apple Silicon cannot boot USB Linux – dropped. |
 | Admin app OS | **Windows first**, code kept cross-platform (only stick writing differs per OS). |

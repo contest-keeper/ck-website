@@ -1,18 +1,18 @@
 # C.4 Dashboard
 
-**Depends on:** C.3, C.5 · **Next:** C.6 · **Folder:** `apps/dashboard` (React + TypeScript)
+**Depends on:** C.3, C.5 · **Next:** C.6 · **Folder:** `apps/dashboard` (Svelte 5 + TypeScript)
 
 ## Why
 The organizers' live view: every stick, every user, every problem.
 
 ## Context
-- Decision: React + TypeScript (Vite, Tailwind, shadcn/ui), TanStack Query for data, WebSocket for live
+- Decision: Svelte 5 (latest release, pinned in package.json; see decisions/006) + TypeScript (Vite, Tailwind), WebSocket for live
   updates; built as static files and served by the API.
 - Uses the generated TypeScript client (C.5) – no hand-written API types.
 - Must stay readable on a projector and usable on a phone.
 
 ## Small steps
-- [ ] **C.4.1** Project setup (Vite, TypeScript strict, lint, Tailwind, shadcn/ui).
+- [ ] **C.4.1** Project setup (Vite, Svelte 5, TypeScript strict, lint, svelte-check, Tailwind).
 - [ ] **C.4.2** Login page (C.2 endpoints).
 - [ ] **C.4.3** Sticks view: stick, team, user, status (online/silent), last seen, recorder state.
 - [ ] **C.4.4** Users view: handle → stick(s), login history.

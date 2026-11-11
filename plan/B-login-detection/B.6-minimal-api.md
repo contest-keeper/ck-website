@@ -27,4 +27,4 @@ This is the seed of the real API (Phase C).
 Tests pass and the page shows a stick's heartbeats live.
 
 ## Out of scope
-Database, organizer login, React dashboard (Phase C).
+Database, organizer login, Svelte dashboard (Phase C).

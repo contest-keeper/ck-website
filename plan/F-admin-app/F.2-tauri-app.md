@@ -1,12 +1,12 @@
 # F.2 Tauri admin app
 
-**Depends on:** F.1, A.4 · **Next:** F.3 · **Folder:** `apps/admin` (Tauri 2 + React + TypeScript)
+**Depends on:** F.1, A.4 · **Next:** F.3 · **Folder:** `apps/admin` (Tauri 2 + Svelte 5 + TypeScript)
 
 ## Why
 Organizers prepare contests in a window, not a terminal.
 
 ## Context
-- Decision: Tauri 2 with a React + TypeScript UI (same stack and components as the dashboard).
+- Decision: Tauri 2 with a Svelte 5 + TypeScript UI (same stack and components as the dashboard).
   Rust side calls `ck-admin-core` and `ck-writer`.
 - On this PC the Rust toolchain is GNU (no MSVC); check Tauri builds with it early (F.2.1). If not,
   install the Visual Studio C++ workload for this app only.

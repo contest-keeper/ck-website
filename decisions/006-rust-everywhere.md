@@ -22,5 +22,5 @@ prototype is kept only as a reference.
 ## Alternatives considered
 - **Python everywhere:** quick for the prototype, but needs an interpreter and libraries on the stick.
 - **Go:** also gives static binaries, but Rust's type system suits the protocol and parsing code better.
-- **React for the UIs:** an earlier draft chose it. Svelte 5 was chosen later so the dashboard and the
-  extension share one stack.
+- **React for the UIs:** an earlier draft chose it. Svelte 5 was chosen so the dashboard and the extension
+  share one stack. Each app starts on the latest stable Svelte release and pins it in `package.json`.
