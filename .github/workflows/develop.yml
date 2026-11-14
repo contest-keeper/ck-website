@@ -43,4 +43,5 @@ jobs:
     uses: contest-keeper/ck-infra/.github/workflows/deploy-website.yml@develop
     with:
       environment: develop
+      infra_ref: develop
       artifact: site
