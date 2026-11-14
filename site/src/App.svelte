@@ -6,8 +6,12 @@
   const HOLDER = 'Robert Popa';
   const YEARS = '2026';
   const RELEASES = 'https://github.com/contest-keeper/ck-forge/releases';
+  // The installer keeps this name in every release, so this link always gives the newest one.
+  const INSTALLER = `${RELEASES}/latest/download/keeper-forge-setup-x64.exe`;
 
   let release = $state('Latest release');
+  // Until a release exists the button opens the releases page instead of a missing file.
+  let download = $state(RELEASES);
 
   onMount(async () => {
     try {
@@ -16,7 +20,10 @@
       });
       if (!res.ok) return;
       const tag = (await res.json()).tag_name;
-      if (typeof tag === 'string' && /^[\w.+-]{1,24}$/.test(tag)) release = `Latest release ${tag}`;
+      if (typeof tag === 'string' && /^[\w.+-]{1,24}$/.test(tag)) {
+        release = `Latest release ${tag}`;
+        download = INSTALLER;
+      }
     } catch {
       /* keep the plain text */
     }
@@ -46,12 +53,12 @@
       <h1 class="rv rv2">Contest Keeper<span class="cur" aria-hidden="true">_</span></h1>
       <p class="rv rv3 sub">Build contest computers on USB sticks, and watch every one from your Hub</p>
       <div class="rv rv4 cta">
-        <a class="bt" href={RELEASES}>
+        <a class="bt" href={download}>
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden="true"><path d="M12 3v9" stroke="currentColor" stroke-width="2" stroke-linecap="round" /><path d="M8.5 10.5 12 13.9l3.5-3.4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M5 17.5v2.5h14V17.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
           Download Forge
         </a>
         <span class="meta first"><span class="dot"></span>{release} &middot; free and open source</span>
-        <span class="meta faint">Requires Windows 10 or newer</span>
+        <span class="meta faint">Requires Windows 10 or newer &middot; <a href="{RELEASES}/latest">checksums and verification</a></span>
       </div>
     </section>
   </main>
