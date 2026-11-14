@@ -6,8 +6,16 @@
   const HOLDER = 'Robert Popa';
   const YEARS = '2026';
   const RELEASES = 'https://github.com/contest-keeper/ck-forge/releases';
+  // The develop site offers the latest develop build (the "dev" pre-release); the real site offers the
+  // latest release. The channel is set when the site is built.
+  const DEV = import.meta.env.VITE_FORGE_CHANNEL === 'dev';
+  const API = DEV
+    ? 'https://api.github.com/repos/contest-keeper/ck-forge/releases/tags/dev'
+    : 'https://api.github.com/repos/contest-keeper/ck-forge/releases/latest';
   // The installer keeps this name in every release, so this link always gives the newest one.
-  const INSTALLER = `${RELEASES}/latest/download/keeper-forge-setup-x64.exe`;
+  const INSTALLER = DEV
+    ? `${RELEASES}/download/dev/keeper-forge-setup-x64.exe`
+    : `${RELEASES}/latest/download/keeper-forge-setup-x64.exe`;
 
   let release = $state('Latest release');
   // Until a release exists the button opens the releases page instead of a missing file.
@@ -15,13 +23,14 @@
 
   onMount(async () => {
     try {
-      const res = await fetch('https://api.github.com/repos/contest-keeper/ck-forge/releases/latest', {
+      const res = await fetch(API, {
         headers: { Accept: 'application/vnd.github+json' },
       });
       if (!res.ok) return;
-      const tag = (await res.json()).tag_name;
-      if (typeof tag === 'string' && /^[\w.+-]{1,24}$/.test(tag)) {
-        release = `Latest release ${tag}`;
+      const json = await res.json();
+      const tag = DEV ? json.name : json.tag_name;
+      if (typeof tag === 'string' && /^[\w .+-]{1,40}$/.test(tag)) {
+        release = DEV ? tag : `Latest release ${tag}`;
         download = INSTALLER;
       }
     } catch {
