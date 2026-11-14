@@ -67,7 +67,7 @@
           Download Forge
         </a>
         <span class="meta first"><span class="dot"></span>{release} &middot; free and open source</span>
-        <span class="meta faint">Requires Windows 10 or newer &middot; <a href="{RELEASES}/latest">checksums and verification</a></span>
+        <span class="meta faint">Requires Windows 10 or newer</span>
       </div>
     </section>
   </main>
