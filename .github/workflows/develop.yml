@@ -29,6 +29,7 @@ jobs:
         working-directory: site
         env:
           VITE_FORGE_CHANNEL: dev
+          VITE_FORGE_DOWNLOAD_URL: ${{ vars.HUB_URL }}/download/forge
       - uses: actions/upload-artifact@v4
         with:
           name: site
