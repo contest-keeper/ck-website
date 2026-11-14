@@ -6,15 +6,15 @@
   const HOLDER = 'Robert Popa';
   const YEARS = '2026';
   const RELEASES = 'https://github.com/contest-keeper/ck-forge/releases';
-  // The develop site offers the latest develop build (the "dev" pre-release); the real site offers the
-  // latest release. The channel is set when the site is built.
+  // The develop site serves the latest develop build from its own Azure storage (the forge pipeline puts it
+  // there); the real site offers the latest release on GitHub. The channel is set when the site is built.
   const DEV = import.meta.env.VITE_FORGE_CHANNEL === 'dev';
   const API = DEV
-    ? 'https://api.github.com/repos/contest-keeper/ck-forge/releases/tags/dev'
+    ? '/downloads/forge/latest.json'
     : 'https://api.github.com/repos/contest-keeper/ck-forge/releases/latest';
   // The installer keeps this name in every release, so this link always gives the newest one.
   const INSTALLER = DEV
-    ? `${RELEASES}/download/dev/keeper-forge-setup-x64.exe`
+    ? '/downloads/forge/keeper-forge-setup-x64.exe'
     : `${RELEASES}/latest/download/keeper-forge-setup-x64.exe`;
 
   let release = $state('Latest release');
@@ -28,9 +28,9 @@
       });
       if (!res.ok) return;
       const json = await res.json();
-      const tag = DEV ? json.name : json.tag_name;
+      const tag = DEV ? json.version : json.tag_name;
       if (typeof tag === 'string' && /^[\w .+-]{1,40}$/.test(tag)) {
-        release = DEV ? tag : `Latest release ${tag}`;
+        release = DEV ? `Develop build ${tag}` : `Latest release ${tag}`;
         download = INSTALLER;
       }
     } catch {
@@ -67,7 +67,7 @@
           Download Forge
         </a>
         <span class="meta first"><span class="dot"></span>{release} &middot; free and open source</span>
-        <span class="meta faint">Requires Windows 10 or newer &middot; <a href="{RELEASES}/latest">checksums and verification</a></span>
+        <span class="meta faint">Requires Windows 10 or newer</span>
       </div>
     </section>
   </main>
