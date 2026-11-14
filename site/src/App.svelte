@@ -6,15 +6,16 @@
   const HOLDER = 'Robert Popa';
   const YEARS = '2026';
   const RELEASES = 'https://github.com/contest-keeper/ck-forge/releases';
-  // The develop site serves the latest develop build from its own Azure storage (the forge pipeline puts it
-  // there); the real site offers the latest release on GitHub. The channel is set when the site is built.
+  // The develop site links to the latest develop build through the Hub, which sends visitors to a short-lived
+  // link on private Azure storage (the forge pipeline puts the file there); the real site offers the latest
+  // release on GitHub. The channel is set when the site is built.
   const DEV = import.meta.env.VITE_FORGE_CHANNEL === 'dev';
   const API = DEV
     ? '/downloads/forge/latest.json'
     : 'https://api.github.com/repos/contest-keeper/ck-forge/releases/latest';
   // The installer keeps this name in every release, so this link always gives the newest one.
   const INSTALLER = DEV
-    ? '/downloads/forge/keeper-forge-setup-x64.exe'
+    ? import.meta.env.VITE_FORGE_DOWNLOAD_URL
     : `${RELEASES}/latest/download/keeper-forge-setup-x64.exe`;
 
   let release = $state('Latest release');
