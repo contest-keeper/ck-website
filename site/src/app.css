@@ -1,0 +1,146 @@
+/* Registered so colours and lengths can morph between looks. */
+@property --bg{syntax:'<color>';inherits:true;initial-value:#fff}
+@property --ink{syntax:'<color>';inherits:true;initial-value:#0F1F2E}
+@property --soft{syntax:'<color>';inherits:true;initial-value:#5B6B78}
+@property --faint{syntax:'<color>';inherits:true;initial-value:#6B7A87}
+@property --card{syntax:'<color>';inherits:true;initial-value:#F5F9F9}
+@property --hair{syntax:'<color>';inherits:true;initial-value:#E1ECEC}
+@property --acc{syntax:'<color>';inherits:true;initial-value:#0B7C7A}
+@property --live{syntax:'<color>';inherits:true;initial-value:#12A150}
+@property --bl{syntax:'<color>';inherits:true;initial-value:#E1ECEC}
+@property --bd{syntax:'<color>';inherits:true;initial-value:#E1ECEC}
+@property --pbg{syntax:'<color>';inherits:true;initial-value:#0B7C7A}
+@property --pfg{syntax:'<color>';inherits:true;initial-value:#fff}
+@property --glow{syntax:'<color>';inherits:true;initial-value:transparent}
+@property --icon1{syntax:'<color>';inherits:true;initial-value:#fff}
+@property --icon2{syntax:'<color>';inherits:true;initial-value:#F4F7F7}
+@property --r{syntax:'<length>';inherits:true;initial-value:14px}
+@property --rb{syntax:'<length>';inherits:true;initial-value:8px}
+@property --ri{syntax:'<length>';inherits:true;initial-value:25px}
+@property --bw{syntax:'<length>';inherits:true;initial-value:1px}
+
+/* ---- New look, light (default and fallback) ---- */
+.ck{
+  --glow:rgba(11,124,122,.09);--bg:#fff;--ink:#0F1F2E;--soft:#5B6B78;--faint:#6B7A87;--card:#F5F9F9;
+  --hair:#E1ECEC;--acc:#0B7C7A;--live:#12A150;--bl:#E1ECEC;--bd:#E1ECEC;--bw:1px;--r:14px;--rb:8px;--ri:25px;
+  --pbg:#0B7C7A;--pfg:#fff;--pbd:1px solid #0B7C7A;--psh:none;--icon1:#fff;--icon2:#F4F7F7;
+  --icon-sh:0 0 0 .5px rgba(0,0,0,.14),0 1px 2px rgba(0,0,0,.08),0 10px 24px rgba(0,0,0,.09);
+  --font:'Inter Variable',system-ui,sans-serif;--head:'Manrope Variable','Inter Variable',sans-serif;
+  --hw:700;--cursor:none;--ease:cubic-bezier(.22,1,.36,1);
+}
+/* ---- New look, dark ---- */
+@media (prefers-color-scheme:dark){
+  .ck{
+    --glow:rgba(20,163,160,.09);--bg:#0C1216;--ink:#F2F6F8;--soft:#A9B7C1;--faint:#84939E;--card:#131B21;
+    --hair:#22303A;--acc:#6FD6D2;--live:#6FD6D2;--bl:#22303A;--bd:#22303A;
+    --pbg:#6FD6D2;--pfg:#06222A;--pbd:1px solid #6FD6D2;--icon1:#222B31;--icon2:#192126;
+    --icon-sh:0 0 0 .5px rgba(255,255,255,.10),0 10px 24px rgba(0,0,0,.35);
+  }
+}
+/* ---- Old look: only where :has() works ---- */
+.ck:has(#th:checked){
+  --glow:transparent;--bg:#C0C0C0;--ink:#000;--soft:#303030;--faint:#404040;--card:#D4D0C8;
+  --hair:#808080;--acc:#0B6F6D;--live:#0B6F6D;--bl:#fff;--bd:#404040;--bw:2px;--r:0px;--rb:0px;--ri:0px;
+  --pbg:#D4D0C8;--pfg:#000;--pbd:3px solid #000;--psh:inset 2px 2px 0 #fff,inset -2px -2px 0 #808080;
+  --icon1:#D4D0C8;--icon2:#D4D0C8;
+  --icon-sh:6px 6px 0 #404040;
+  --font:Tahoma,'MS Sans Serif',Verdana,sans-serif;--head:Tahoma,'MS Sans Serif',Verdana,sans-serif;
+  --hw:800;--cursor:inline;
+}
+@media (prefers-color-scheme:dark){
+  .ck:has(#th:checked){
+    --bg:#1B1F22;--ink:#E8E8E8;--soft:#BDBDBD;--faint:#9A9A9A;--card:#2A2F33;--hair:#0a0a0a;
+    --acc:#6FD6D2;--live:#6FD6D2;--bl:#555;--bd:#0a0a0a;
+    --pbg:#2b2b2b;--pfg:#E8E8E8;--pbd:3px solid #E8E8E8;--psh:inset 2px 2px 0 #555,inset -2px -2px 0 #0a0a0a;
+    --icon1:#2A2F33;--icon2:#2A2F33;--icon-sh:6px 6px 0 #000;
+  }
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+a{color:inherit;text-decoration:none}
+
+.ck{
+  position:relative;height:100vh;height:100dvh;overflow:hidden;display:flex;flex-direction:column;
+  background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.5;-webkit-font-smoothing:antialiased;
+  transition:
+    --bg 1s var(--ease),--ink 1s var(--ease),--soft 1s var(--ease),--faint 1s var(--ease),--card 1s var(--ease),
+    --hair 1s var(--ease),--acc 1s var(--ease),--live 1s var(--ease),--bl 1s var(--ease),--bd 1s var(--ease),
+    --pbg 1s var(--ease),--pfg 1s var(--ease),--glow 1s var(--ease),--icon1 1s var(--ease),--icon2 1s var(--ease),
+    --r 1s var(--ease),--rb 1s var(--ease),--ri 1s var(--ease),--bw 1s var(--ease);
+}
+.ck>input{position:absolute;opacity:0;pointer-events:none}
+.ck>input:focus-visible~header .sw .trk{outline:2px solid var(--acc);outline-offset:2px}
+
+header{
+  flex:none;height:60px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 max(20px,calc((100% - 1200px)/2 + 18px));border-bottom:var(--bw) solid var(--hair);position:relative;
+}
+.brand{font-family:var(--head);font-weight:700;font-size:18px;letter-spacing:-.02em}
+.tools{display:flex;align-items:center;gap:14px}
+
+.sw{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;cursor:pointer;color:var(--soft)}
+.sw .trk{position:relative;width:44px;height:24px;border:var(--bw) solid;border-color:var(--bl) var(--bd) var(--bd) var(--bl);background:var(--card);border-radius:calc(var(--rb)*3)}
+.sw .trk i{position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:calc(var(--rb)*2);background:var(--ink);transition:left .6s var(--ease)}
+.sw .n,.ck:has(#th:checked) .sw .o{color:var(--ink)}
+.sw .o,.ck:has(#th:checked) .sw .n{color:var(--soft)}
+.ck:has(#th:checked) .sw .trk i{left:23px}
+/* Without :has() the toggle cannot work, so hide it and keep the New look. */
+@supports not selector(:has(*)){.sw{display:none}}
+
+.gh{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:var(--rb);transition:background .2s}
+.gh:hover{background:var(--card)}
+.gh:focus-visible,.bt:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+
+main{position:relative;flex:1;min-height:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:16px 20px;overflow:auto}
+.glow{
+  position:absolute;left:50%;bottom:-170px;width:min(980px,92%);height:320px;transform:translateX(-50%);
+  border-radius:999px;background:radial-gradient(ellipse at center,var(--glow) 0%,transparent 70%);
+  filter:blur(38px);pointer-events:none;animation:breathe 11s ease-in-out infinite;
+}
+.pg{position:relative;max-width:760px;margin:auto;animation:swapb 1.1s var(--ease) both}
+.ck:has(#th:checked) .pg{animation-name:swapa}
+
+.appicon{
+  width:112px;height:112px;margin:0 auto 20px;border-radius:var(--ri);display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(180deg,var(--icon1),var(--icon2));box-shadow:var(--icon-sh);
+}
+.appicon img{width:62%;height:62%;display:block;image-rendering:pixelated}
+
+h1{margin:0 0 14px;font-family:var(--head);font-size:clamp(38px,5.4vw,66px);line-height:1.03;letter-spacing:-.04em;font-weight:var(--hw)}
+.cur{display:var(--cursor);color:var(--acc);animation:blink 1.1s steps(1) infinite}
+.sub{margin:0 auto;max-width:36ch;font-size:clamp(17px,2vw,23px);line-height:1.5;color:var(--soft)}
+.cta{margin-top:28px;display:flex;flex-direction:column;align-items:center;gap:6px}
+
+.bt{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap;width:210px;height:44px;
+  font-weight:700;font-size:15px;border-radius:var(--rb);background:var(--pbg);color:var(--pfg);border:var(--pbd);box-shadow:var(--psh);
+  transition:transform .5s var(--ease);
+}
+.bt:hover{transform:translateY(-1px)}
+.meta{display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--soft)}
+.meta.first{margin-top:10px}
+.meta.faint{color:var(--faint)}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--live);animation:ping 2.4s ease-in-out infinite}
+
+footer{flex:none;padding:14px 24px 16px;border-top:var(--bw) solid var(--hair);font-size:12.5px;color:var(--faint);text-align:center;position:relative}
+
+/* Intro: each piece fades up from a soft blur, one after another. */
+.rv{animation:rv 1.5s var(--ease) both}
+.rv2{animation-delay:.28s}.rv3{animation-delay:.44s}.rv4{animation-delay:.6s}
+.fl{animation:rv 1.5s var(--ease) .1s both,flt 9s ease-in-out 1.8s infinite}
+
+@keyframes rv{from{opacity:0;transform:translate3d(0,32px,0) scale(.985);filter:blur(14px)}to{opacity:1;transform:none;filter:blur(0)}}
+@keyframes flt{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(0,-7px,0)}}
+/* Two identical keyframes so the blur plays on the way back to New too. */
+@keyframes swapa{0%{opacity:.4;filter:blur(10px)}100%{opacity:1;filter:blur(0)}}
+@keyframes swapb{0%{opacity:.4;filter:blur(10px)}100%{opacity:1;filter:blur(0)}}
+@keyframes breathe{0%,100%{opacity:.6;transform:translateX(-50%) scale(1)}50%{opacity:1;transform:translateX(-50%) scale(1.06)}}
+@keyframes ping{0%,100%{box-shadow:0 0 0 3px color-mix(in oklab,var(--live) 25%,transparent)}50%{box-shadow:0 0 0 6px transparent}}
+@keyframes blink{0%,60%{opacity:1}61%,100%{opacity:0}}
+
+@media (prefers-reduced-motion:reduce){
+  .ck{transition:none}
+  .rv,.fl,.pg,.glow,.dot,.cur{animation:none}
+  .sw .trk i,.bt{transition:none}
+}
