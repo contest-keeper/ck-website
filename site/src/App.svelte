@@ -69,6 +69,7 @@
         </a>
         <span class="meta first"><span class="dot"></span>{release} &middot; free and open source</span>
         <span class="meta faint">Requires Windows 10 or newer</span>
+        <span class="meta faint">Keeper OS images are downloaded from your Hub after you sign in</span>
       </div>
     </section>
   </main>
