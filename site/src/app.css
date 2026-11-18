@@ -144,3 +144,11 @@ footer{flex:none;padding:14px 24px 16px;border-top:var(--bw) solid var(--hair);f
   .rv,.fl,.pg,.glow,.dot,.cur{animation:none}
   .sw .trk i,.bt{transition:none}
 }
+
+/* Licences: a small panel that opens above the footer. */
+.lic{display:inline-block;margin-right:14px}
+.lic summary{cursor:pointer;color:var(--soft);list-style:none;display:inline}
+.lic summary::-webkit-details-marker{display:none}
+.lic summary:hover,.lic summary:focus-visible{color:var(--ink);text-decoration:underline}
+.licbody{position:absolute;left:50%;bottom:100%;transform:translateX(-50%);width:min(560px,calc(100vw - 32px));max-height:60vh;overflow:auto;text-align:left;padding:4px 20px 6px;background:var(--bg);color:var(--soft);border:var(--bw) solid var(--hair);border-radius:var(--rb);font-size:13px;line-height:1.55;box-shadow:0 10px 30px rgba(0,0,0,.12)}
+.licbody a{color:var(--acc)}
