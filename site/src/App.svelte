@@ -74,5 +74,27 @@
     </section>
   </main>
 
-  <footer>Copyright &copy; {YEARS} {HOLDER}</footer>
+  <footer>
+    <details class="lic">
+      <summary>Licences</summary>
+      <div class="licbody">
+        <p>
+          Contest Keeper (Forge, Hub, the agent and this site) is licensed under the
+          <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</a>. The code we depend on is limited to
+          permissive licences (MIT, Apache-2.0, BSD, ISC), checked on every change.
+        </p>
+        <p>
+          Keeper OS is built from free software that runs as separate programs: the Linux kernel, the GNU tools, Squid,
+          XFCE, Firefox, VSCodium, Code::Blocks and Geany. Their licences, mostly GPL, are kept inside the image. Every
+          image comes with a written offer of its source code, next to the download on your Hub. Proprietary software is
+          never part of a published image.
+        </p>
+        <p>
+          <a href="THIRD-PARTY-LICENSES.txt">Licences of the packages this site is built from</a>. The Hub and Forge
+          carry their own list with every release.
+        </p>
+      </div>
+    </details>
+    <span>Copyright &copy; {YEARS} {HOLDER}</span>
+  </footer>
 </div>
