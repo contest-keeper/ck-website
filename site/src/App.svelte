@@ -17,6 +17,7 @@
   const INSTALLER = DEV
     ? import.meta.env.VITE_FORGE_DOWNLOAD_URL
     : `${RELEASES}/latest/download/keeper-forge-setup-x64.exe`;
+  const HUB = import.meta.env.VITE_HUB_URL?.replace(/\/+$/, '');
 
   let release = $state('Latest release');
   // Until a release exists the button opens the releases page instead of a missing file.
@@ -69,7 +70,11 @@
         </a>
         <span class="meta first"><span class="dot"></span>{release} &middot; free and open source</span>
         <span class="meta faint">Requires Windows 10 or newer</span>
-        <span class="meta faint">Keeper OS images are downloaded from your Hub after you sign in</span>
+        {#if DEV && HUB}
+          <a class="meta os-link" href={`${HUB}/download/image`}>Sign in to download Keeper OS</a>
+        {:else}
+          <span class="meta faint">Keeper OS images are downloaded from your Hub after you sign in</span>
+        {/if}
       </div>
     </section>
   </main>

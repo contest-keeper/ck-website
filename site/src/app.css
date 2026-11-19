@@ -90,7 +90,7 @@ header{
 
 .gh{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:var(--rb);transition:background .2s}
 .gh:hover{background:var(--card)}
-.gh:focus-visible,.bt:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.gh:focus-visible,.bt:focus-visible,.os-link:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 
 main{position:relative;flex:1;min-height:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:16px 20px;overflow:auto}
 .glow{
@@ -121,6 +121,7 @@ h1{margin:0 0 14px;font-family:var(--head);font-size:clamp(38px,5.4vw,66px);line
 .meta{display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--soft)}
 .meta.first{margin-top:10px}
 .meta.faint{color:var(--faint)}
+.os-link{padding:4px 0;text-decoration:underline;text-underline-offset:3px}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--live);animation:ping 2.4s ease-in-out infinite}
 
 footer{flex:none;padding:14px 24px 16px;border-top:var(--bw) solid var(--hair);font-size:12.5px;color:var(--faint);text-align:center;position:relative}
