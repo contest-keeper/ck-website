@@ -13,11 +13,11 @@
   const API = DEV
     ? '/downloads/forge/latest.json'
     : 'https://api.github.com/repos/contest-keeper/ck-forge/releases/latest';
+  const HUB = import.meta.env.VITE_HUB_URL?.trim().replace(/\/+$/, '');
   // The installer keeps this name in every release, so this link always gives the newest one.
   const INSTALLER = DEV
-    ? import.meta.env.VITE_FORGE_DOWNLOAD_URL
+    ? `${HUB}/download/forge`
     : `${RELEASES}/latest/download/keeper-forge-setup-x64.exe`;
-  const HUB = import.meta.env.VITE_HUB_URL?.replace(/\/+$/, '');
 
   let release = $state('Latest release');
   // Until a release exists the button opens the releases page instead of a missing file.
@@ -70,7 +70,7 @@
         </a>
         <span class="meta first"><span class="dot"></span>{release} &middot; free and open source</span>
         <span class="meta faint">Requires Windows 10 or newer</span>
-        {#if DEV && HUB}
+        {#if DEV}
           <a class="meta os-link" href={`${HUB}/download/image`}>Sign in to download Keeper OS</a>
         {:else}
           <span class="meta faint">Keeper OS images are downloaded from your Hub after you sign in</span>
