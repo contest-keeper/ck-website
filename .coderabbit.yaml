@@ -1,0 +1,13 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+language: en-US
+reviews:
+  profile: assertive
+  auto_review:
+    enabled: true
+    base_branches: ["^develop$"]
+    ignore_usernames: ["dependabot[bot]"]
+  tools:
+    shellcheck:
+      enabled: true
+    clippy:
+      enabled: true
