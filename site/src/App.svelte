@@ -19,6 +19,23 @@
     ? `${HUB}/download/forge`
     : `${RELEASES}/latest/download/keeper-forge-setup-x64.exe`;
 
+  let licences;
+  let licencesOpen = $state(false);
+
+  function closeLicences() {
+    if (!licencesOpen) return;
+    licences.open = false;
+    licences.querySelector('summary').focus();
+  }
+
+  function onKeydown(event) {
+    if (event.key === 'Escape') closeLicences();
+  }
+
+  function onPointerdown(event) {
+    if (licencesOpen && !licences.contains(event.target)) licences.open = false;
+  }
+
   let release = $state('Latest release');
   // Until a release exists the button opens the releases page instead of a missing file.
   let download = $state(RELEASES);
@@ -40,6 +57,8 @@
     }
   });
 </script>
+
+<svelte:window onkeydown={onKeydown} onpointerdown={onPointerdown} />
 
 <div class="ck">
   <input type="checkbox" id="th" aria-label="Old look" />
@@ -80,8 +99,8 @@
   </main>
 
   <footer>
-    <details class="lic">
-      <summary>Licences</summary>
+    <details class="lic" bind:this={licences} ontoggle={() => (licencesOpen = licences.open)}>
+      <summary aria-expanded={licencesOpen}>Licences</summary>
       <div class="licbody">
         <p>
           Contest Keeper (Forge, Hub, the agent and this site) is licensed under the
