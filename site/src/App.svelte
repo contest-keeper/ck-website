@@ -36,9 +36,15 @@
     if (licencesOpen && !licences.contains(event.target)) licences.open = false;
   }
 
+  // The macOS build keeps this name in every release, like the Windows installer does.
+  const MAC_ASSET = 'keeper-forge-macos-universal.zip';
+
   let release = $state('Latest release');
-  // Until a release exists the button opens the releases page instead of a missing file.
+  // Until a release exists the buttons open the releases page instead of a missing file. The macOS button
+  // stays on that page until a release really carries a macOS file: the develop channel has none, and
+  // not every release has one.
   let download = $state(RELEASES);
+  let downloadMac = $state(RELEASES);
 
   onMount(async () => {
     try {
@@ -51,6 +57,9 @@
       if (typeof tag === 'string' && /^[\w .+-]{1,40}$/.test(tag)) {
         release = DEV ? `Develop build ${tag}` : `Latest release ${tag}`;
         download = INSTALLER;
+        if (!DEV && json.assets?.some((asset) => asset?.name === MAC_ASSET)) {
+          downloadMac = `${RELEASES}/latest/download/${MAC_ASSET}`;
+        }
       }
     } catch {
       /* keep the plain text */
@@ -83,12 +92,18 @@
       <h1 class="rv rv2">Contest Keeper<span class="cur" aria-hidden="true">_</span></h1>
       <p class="rv rv3 sub">Build contest computers on USB sticks, and watch every one from your Hub</p>
       <div class="rv rv4 cta">
-        <a class="bt" href={download}>
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden="true"><path d="M12 3v9" stroke="currentColor" stroke-width="2" stroke-linecap="round" /><path d="M8.5 10.5 12 13.9l3.5-3.4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M5 17.5v2.5h14V17.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
-          Download Forge
-        </a>
+        <div class="btrow">
+          <a class="bt" href={download}>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden="true"><path d="M12 3v9" stroke="currentColor" stroke-width="2" stroke-linecap="round" /><path d="M8.5 10.5 12 13.9l3.5-3.4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M5 17.5v2.5h14V17.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            Download for Windows
+          </a>
+          <a class="bt" href={downloadMac}>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden="true"><path d="M12 3v9" stroke="currentColor" stroke-width="2" stroke-linecap="round" /><path d="M8.5 10.5 12 13.9l3.5-3.4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M5 17.5v2.5h14V17.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            Download for macOS
+          </a>
+        </div>
         <span class="meta first"><span class="dot"></span>{release} &middot; free and open source</span>
-        <span class="meta faint">Requires Windows 10 or newer</span>
+        <span class="meta faint">Windows 10 or newer, or macOS</span>
         {#if DEV}
           <a class="meta os-link" href={`${HUB}/download/image`}>Sign in to download Keeper OS</a>
         {:else}
