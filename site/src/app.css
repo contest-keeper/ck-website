@@ -117,7 +117,7 @@ h1{margin:0 0 14px;font-family:var(--head);font-size:clamp(38px,5.4vw,66px);line
 .osicon{color:var(--ink);margin-bottom:2px}
 .osname{margin:0 0 8px;font-family:var(--head);font-size:20px;font-weight:var(--hw);letter-spacing:-.01em}
 .bt{
-  display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap;width:210px;height:44px;
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap;width:230px;height:44px;
   font-weight:700;font-size:15px;border-radius:var(--rb);background:var(--pbg);color:var(--pfg);border:var(--pbd);box-shadow:var(--psh);
   transition:transform .5s var(--ease);
 }
