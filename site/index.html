@@ -7,19 +7,8 @@
     <meta name="color-scheme" content="light dark" />
     <title>Contest Keeper</title>
     <meta name="description" content="Build contest computers on USB sticks, and watch every one from your Hub." />
-    <script>
-      // Apply the saved look and theme before first paint, so the page never flashes the wrong one.
-      try {
-        const l = localStorage.getItem('ck-look');
-        const m = localStorage.getItem('ck-mode');
-        const d = document.documentElement.dataset;
-        d.look = l === 'classic' ? 'classic' : 'modern';
-        d.mode = m === 'dark' || m === 'light' ? m : matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-      } catch {
-        document.documentElement.dataset.look = 'modern';
-        document.documentElement.dataset.mode = 'light';
-      }
-    </script>
+    <!-- External, not inline, so the CSP can stay free of unsafe-inline. -->
+    <script src="./theme-init.js"></script>
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
   </head>
   <body>

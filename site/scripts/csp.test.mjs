@@ -19,3 +19,7 @@ test('connect-src allows every host the page fetches from', () => {
   assert.ok(fetched.length > 0);
   for (const h of fetched) assert.ok(connect.includes(h), `${h} blocked by connect-src`);
 });
+
+test('index.html has no inline script, which the policy would block', () => {
+  assert.ok(!/<script(?![^>]*\bsrc=)[^>]*>/.test(html));
+});
