@@ -78,7 +78,7 @@
   }
 
   // The macOS build keeps this name in every release, like the Windows installer does.
-  const MAC_ASSET = 'keeper-forge-macos-universal.zip';
+  const MAC_ASSET = 'keeper-forge-macos-universal.dmg';
 
   let release = $state('Latest release');
   // Until a release exists the buttons open the releases page instead of a missing file. The macOS button
