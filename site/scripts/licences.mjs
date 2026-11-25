@@ -21,7 +21,7 @@ for (const [license, packages] of Object.entries(listing)) {
 }
 
 // What the built site contains: the roots and everything they depend on at run time.
-const ROOTS = ['svelte', '@fontsource-variable/inter', '@fontsource-variable/manrope'];
+const ROOTS = ['svelte', '@fontsource-variable/inter'];
 const wanted = new Map();
 const queue = [...ROOTS];
 while (queue.length) {
