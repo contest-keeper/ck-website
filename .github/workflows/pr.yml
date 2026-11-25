@@ -14,17 +14,17 @@ concurrency:
 
 jobs:
   common:
-    uses: contest-keeper/.github/.github/workflows/common-ci.yml@main
+    uses: contest-keeper/.github/.github/workflows/common-ci.yml@8fbe95f9a4f5d61ac65d8eb046f142b371db790e # main
   site:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
-      - uses: pnpm/action-setup@v6
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6
         with:
           package_json_file: site/package.json
-      - uses: actions/setup-node@v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
         with:
-          node-version: lts/*
+          node-version-file: site/.nvmrc
           cache: pnpm
           cache-dependency-path: site/pnpm-lock.yaml
       - run: pnpm install --frozen-lockfile

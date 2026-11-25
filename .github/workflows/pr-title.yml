@@ -16,4 +16,4 @@ concurrency:
 
 jobs:
   title:
-    uses: contest-keeper/.github/.github/workflows/pr-title.yml@main
+    uses: contest-keeper/.github/.github/workflows/pr-title.yml@8fbe95f9a4f5d61ac65d8eb046f142b371db790e # main
