@@ -104,6 +104,8 @@ header{
   position:absolute;top:calc(100% + 8px);right:max(16px,calc((100% - 1200px)/2 + 18px));width:min(340px,calc(100vw - 32px));
   padding:16px;display:flex;flex-direction:column;gap:14px;text-align:left;background:var(--bg);color:var(--ink);
   border-radius:20px;box-shadow:var(--pop-sh),inset 0 0 0 1px var(--hair);
+  /* Header 60px + 8px gap + 16px margin: on a short screen the panel scrolls instead of being cut off. */
+  max-height:calc(100dvh - 84px);overflow-y:auto;overscroll-behavior:contain;
 }
 :root[data-look=classic] .panel{border-radius:0;box-shadow:var(--bev)}
 .panel h2{margin:0;font-size:16px;font-family:var(--head)}
