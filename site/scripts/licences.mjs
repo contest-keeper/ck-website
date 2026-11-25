@@ -4,6 +4,7 @@
 import { execFileSync } from 'node:child_process';
 import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { rootsOf } from './roots.mjs';
 
 // Run through the same pnpm that runs this script.
 const pnpm = process.env.npm_execpath;
@@ -21,7 +22,7 @@ for (const [license, packages] of Object.entries(listing)) {
 }
 
 // What the built site contains: the roots and everything they depend on at run time.
-const ROOTS = ['svelte', '@fontsource-variable/inter'];
+const ROOTS = rootsOf(JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8')));
 const wanted = new Map();
 const queue = [...ROOTS];
 while (queue.length) {

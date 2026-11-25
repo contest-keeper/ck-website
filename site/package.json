@@ -8,7 +8,8 @@
     "dev": "vite",
     "prebuild": "node scripts/licences.mjs",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "node --test scripts/"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^7.3.1",

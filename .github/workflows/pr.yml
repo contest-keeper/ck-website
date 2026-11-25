@@ -31,3 +31,5 @@ jobs:
         working-directory: site
       - run: pnpm build
         working-directory: site
+      - run: pnpm test
+        working-directory: site
