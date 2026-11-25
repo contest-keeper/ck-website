@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from 'svelte';
+  import { onMount, tick } from 'svelte';
   import logo from './logo.svg';
 
   // Change these in one place.
@@ -28,12 +28,53 @@
     licences.querySelector('summary').focus();
   }
 
+  // index.html has already put the saved look and theme on <html>.
+  const root = document.documentElement;
+  let look = $state(root.dataset.look);
+  let mode = $state(root.dataset.mode);
+  let settingsOpen = $state(false);
+  let settingsBtn;
+
+  function save(key, value) {
+    try {
+      localStorage.setItem(key, value);
+    } catch {
+      /* private mode: the choice still applies until the page closes */
+    }
+  }
+  function setLook(value) {
+    look = root.dataset.look = value;
+    save('ck-look', value);
+  }
+  function setMode(value) {
+    mode = root.dataset.mode = value;
+    save('ck-mode', value);
+  }
+  async function openSettings() {
+    settingsOpen = true;
+    await tick();
+    document.querySelector('#appearance .opt[aria-pressed="true"]').focus();
+  }
+  function closeSettings(refocus = true) {
+    if (!settingsOpen) return;
+    settingsOpen = false;
+    if (refocus) settingsBtn.focus();
+  }
+  // Tabbing out of the panel closes it, so it never hangs over the page.
+  function onPanelFocusout(event) {
+    if (event.relatedTarget && !event.currentTarget.contains(event.relatedTarget) && event.relatedTarget !== settingsBtn) closeSettings(false);
+  }
+
   function onKeydown(event) {
-    if (event.key === 'Escape') closeLicences();
+    if (event.key === 'Escape') {
+      closeLicences();
+      closeSettings();
+    }
   }
 
   function onPointerdown(event) {
     if (licencesOpen && !licences.contains(event.target)) licences.open = false;
+    if (settingsOpen && !event.target.closest('#appearance, .sbt')) closeSettings(false);
   }
 
   // The macOS build keeps this name in every release, like the Windows installer does.
@@ -70,26 +111,52 @@
 <svelte:window onkeydown={onKeydown} onpointerdown={onPointerdown} />
 
 <div class="ck">
-  <input type="checkbox" id="th" aria-label="Old look" />
-
   <div class="glow" aria-hidden="true"></div>
 
   <header>
     <span class="brand">Contest Keeper</span>
     <span class="tools">
-      <label class="sw" for="th">
-        <span class="n">New</span><span class="trk"><i></i></span><span class="o">Old</span>
-      </label>
+      <button class="sbt" type="button" aria-haspopup="dialog" aria-expanded={settingsOpen} aria-controls="appearance" bind:this={settingsBtn} onclick={() => (settingsOpen ? closeSettings() : openSettings())}>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3" /><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1" /></svg>
+        Settings
+      </button>
       <a class="gh" href="https://github.com/contest-keeper" aria-label="Contest Keeper on GitHub">
         <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.7 5.4-5.27 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z" /></svg>
       </a>
     </span>
+    {#if settingsOpen}
+      <div class="panel" id="appearance" role="dialog" aria-label="Appearance settings" onfocusout={onPanelFocusout}>
+        <div class="prow">
+          <h2>Appearance</h2>
+          <button class="sbt" type="button" onclick={closeSettings} aria-label="Close settings">Done</button>
+        </div>
+        <div>
+          <h3>Look</h3>
+          <div class="opts" role="group" aria-label="Look">
+            <button class="opt" type="button" aria-pressed={look === 'modern'} onclick={() => setLook('modern')}>
+              <span class="prev n"><i></i><i></i></span><b>New</b><span>Clean and modern</span>
+            </button>
+            <button class="opt" type="button" aria-pressed={look === 'classic'} onclick={() => setLook('classic')}>
+              <span class="prev c"><i></i><i></i></span><b>Classic</b><span>Like the browser extension</span>
+            </button>
+          </div>
+        </div>
+        <div>
+          <h3>Theme</h3>
+          <div class="opts" role="group" aria-label="Theme">
+            <button class="opt" type="button" aria-pressed={mode === 'light'} onclick={() => setMode('light')}><b>Light</b><span>Bright background</span></button>
+            <button class="opt" type="button" aria-pressed={mode === 'dark'} onclick={() => setMode('dark')}><b>Dark</b><span>Easy on the eyes</span></button>
+          </div>
+        </div>
+        <p class="hint">Saved on this computer.</p>
+      </div>
+    {/if}
   </header>
 
   <main>
     <section class="pg">
       <div class="fl appicon" aria-hidden="true"><img src={logo} alt="" /></div>
-      <h1 class="rv rv2">Contest Keeper<span class="cur" aria-hidden="true">_</span></h1>
+      <h1 class="rv rv2">Contest Keeper</h1>
       <p class="rv rv3 sub">Build contest computers on USB sticks, and watch every one from your Hub</p>
       <div class="rv rv4 cta">
         <div class="osgrid">
