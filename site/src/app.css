@@ -185,3 +185,22 @@ footer{flex:none;padding:14px 24px 16px;border-top:var(--bw) solid var(--hair);f
 .licbody{position:absolute;left:50%;bottom:100%;transform:translateX(-50%);width:min(560px,calc(100vw - 32px));max-height:60vh;overflow:auto;text-align:left;padding:4px 20px 6px;background:var(--bg);color:var(--soft);border:var(--bw) solid var(--hair);border-radius:20px;font-size:13px;line-height:1.55;box-shadow:var(--pop-sh);overscroll-behavior:contain}
 .licbody a{color:var(--link)}
 :root[data-look=classic] .licbody{border:0;box-shadow:var(--bev);border-radius:0}
+
+/* Phones: nothing is wider than the screen, and the header fits at 320px. */
+.pg{min-width:0;max-width:100%}
+main{overflow-x:hidden}
+.meta.faint{display:block;max-width:100%;text-align:center}
+code{overflow-wrap:anywhere}
+.brand{white-space:nowrap}
+@media (max-width:480px){
+  header{padding:0 12px}
+  .brand,:root[data-look=classic] .brand{min-width:0;overflow:hidden;text-overflow:ellipsis;font-size:18px}
+  .tools{flex:none}
+  .tools{gap:2px}
+  .sbt{padding:0 12px}
+  .appicon{width:92px;height:92px;margin-bottom:16px}
+  .osgrid{gap:24px}
+  .bt{max-width:100%}
+  .cta{margin-top:20px}
+  footer{padding:10px 12px 12px}
+}
