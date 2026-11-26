@@ -45,7 +45,7 @@ jobs:
     permissions:
       contents: read
       id-token: write
-    uses: contest-keeper/ck-infra/.github/workflows/deploy-website.yml@56e50905261e6d4bee37af556e352278ad4738a3 # develop
+    uses: contest-keeper/ck-infra/.github/workflows/deploy-website.yml@74880d4e8bbac9b4a07eef2cc4d7403e6c979bd6 # develop
     secrets:
       cloudflare_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
     with:
