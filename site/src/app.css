@@ -194,6 +194,8 @@ code{overflow-wrap:anywhere}
 .brand{white-space:nowrap}
 @media (max-width:480px){
   header{padding:0 12px}
+  .brand,:root[data-look=classic] .brand{min-width:0;overflow:hidden;text-overflow:ellipsis;font-size:18px}
+  .tools{flex:none}
   .tools{gap:2px}
   .sbt{padding:0 12px}
   .appicon{width:92px;height:92px;margin-bottom:16px}
