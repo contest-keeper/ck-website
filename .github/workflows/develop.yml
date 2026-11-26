@@ -50,5 +50,6 @@ jobs:
       cloudflare_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
     with:
       environment: develop
-      infra_ref: 56e50905261e6d4bee37af556e352278ad4738a3
+      # deploy-website.yml only accepts a branch name here (develop or main), not a sha
+      infra_ref: develop
       artifact: site
