@@ -10,17 +10,22 @@ on:
 permissions:
   contents: read
 
+# Never cancel a deploy half way; two merges queue in order.
+concurrency:
+  group: develop-deploy
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
-      - uses: pnpm/action-setup@v6
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6
         with:
           package_json_file: site/package.json
-      - uses: actions/setup-node@v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
         with:
-          node-version: lts/*
+          node-version-file: site/.nvmrc
           cache: pnpm
           cache-dependency-path: site/pnpm-lock.yaml
       - run: pnpm install --frozen-lockfile
@@ -30,7 +35,7 @@ jobs:
         env:
           VITE_FORGE_CHANNEL: dev
           VITE_HUB_URL: ${{ vars.HUB_URL }}
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: site
           path: site/dist
@@ -40,10 +45,10 @@ jobs:
     permissions:
       contents: read
       id-token: write
-    uses: contest-keeper/ck-infra/.github/workflows/deploy-website.yml@develop
+    uses: contest-keeper/ck-infra/.github/workflows/deploy-website.yml@56e50905261e6d4bee37af556e352278ad4738a3 # develop
     secrets:
       cloudflare_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
     with:
       environment: develop
-      infra_ref: develop
+      infra_ref: 56e50905261e6d4bee37af556e352278ad4738a3
       artifact: site

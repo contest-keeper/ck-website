@@ -176,6 +176,9 @@
           </div>
         </div>
         <span class="meta first"><span class="dot"></span>{release} &middot; free and open source</span>
+        {#if !DEV}
+          <span class="meta faint">Check a download: <code>Get-FileHash &lt;file&gt;</code> in PowerShell, or <code>shasum -a 256 &lt;file&gt;</code> on macOS, and compare with <a href={`${RELEASES}/latest/download/SHA256SUMS`}>SHA256SUMS</a></span>
+        {/if}
         {#if DEV}
           <a class="meta os-link" href={`${HUB}/download/image`}>Sign in to download Keeper OS</a>
         {:else}
