@@ -82,8 +82,8 @@
 
   let release = $state('Latest release');
   // Until a release exists the buttons open the releases page instead of a missing file. The macOS button
-  // stays on that page until a release really carries a macOS file: the develop channel has none, and
-  // not every release has one.
+  // stays on that page until a release really carries a macOS file: the develop channel goes through the
+  // Hub, whose pipeline puts the disk image on Azure, and not every release has one.
   let download = $state(RELEASES);
   let downloadMac = $state(RELEASES);
 
@@ -98,6 +98,7 @@
       if (typeof tag === 'string' && /^[\w .+-]{1,40}$/.test(tag)) {
         release = DEV ? `Develop build ${tag}` : `Latest release ${tag}`;
         download = INSTALLER;
+        if (DEV) downloadMac = `${HUB}/download/forge/macos`;
         if (!DEV && json.assets?.some((asset) => asset?.name === MAC_ASSET)) {
           downloadMac = `${RELEASES}/latest/download/${MAC_ASSET}`;
         }
